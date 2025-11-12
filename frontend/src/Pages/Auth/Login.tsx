@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -49,17 +49,12 @@ const Login: React.FC = () => {
           message: "Login realizado com sucesso",
           type: "success"
         });
+        console.log(response);
+        const token = response.session.access_token;
+        const user = response.user.id;
 
-        const token = response.data.token;
-        const user = {
-          id: response.data.id,
-          email: response.data.email,
-          first_name: response.data.first_name,
-          last_name: response.data.last_name,
-          avatar: response.data.avatar ?? null
-        };
-        localStorage.setItem("HMZ-Authentication-Token", token);
-        localStorage.setItem("HMZ-Authenticated-User", JSON.stringify(user.id));
+        localStorage.setItem("Authentication-Token", token);
+        localStorage.setItem("Authenticated-User", JSON.stringify(user));
         return navigate("/home");
       },
       onError: (error) => {

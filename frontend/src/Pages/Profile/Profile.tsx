@@ -22,7 +22,6 @@ const Profile: React.FC = () => {
   const { setToast } = useToast();
 
   const { data: profile, refetch } = useGet_Profile({
-    variables: { id_user: Number(id) },
     enabled: user?.id !== undefined
   });
 
@@ -47,10 +46,10 @@ const Profile: React.FC = () => {
   useEffect(() => {
     if (profile?.data) {
       reset({
-        avatar: profile?.data.avatar ?? undefined,
-        first_name: profile?.data.first_name,
-        last_name: profile?.data.last_name,
-        email: profile?.data.email,
+        avatar: profile?.data.user.avatar ?? undefined,
+        first_name: profile?.data.user.first_name,
+        last_name: profile?.data.user.last_name,
+        email: profile?.data.user.email,
       });
     }
   }, [profile, reset]);

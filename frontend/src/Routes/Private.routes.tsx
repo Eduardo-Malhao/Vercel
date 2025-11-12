@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
 const isAuthenticated = () => {
-  // return Boolean(localStorage.getItem('HMZ-Authentication-Token'));
+  // return Boolean(localStorage.getItem('Authentication-Token'));
   return true;
 };
 

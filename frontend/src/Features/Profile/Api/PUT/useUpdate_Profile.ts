@@ -23,9 +23,9 @@ export const useUpdate_Profile = createMutation<
 >({
   mutationFn: async ({ id_user, data }) => {
 
-    const response = await client.put<Response>(`/users/update/${id_user}`, data, {
+    const response = await client.put<Response>(`https://wfrkrytdntmuwoejewbj.supabase.co/functions/v1/update-profile`, data, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        apikey: import.meta.env.VITE_API_DB_KEY,
       },
     });
     return response.data;

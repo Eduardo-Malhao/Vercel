@@ -10,7 +10,7 @@ export const client = axios.create({
 });
 
 const getToken = (): string => {
-  return localStorage.getItem("HMZ-Authentication-Token")?.replace(/^"|"$/g, "") || "";
+  return localStorage.getItem("Authentication-Token")?.replace(/^"|"$/g, "") || "";
 };
 
 client.interceptors.request.use((config) => {
@@ -30,13 +30,13 @@ client.interceptors.request.use((config) => {
 client.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (
-      error.response?.status === 401) {
-      localStorage.removeItem("HMZ-Authentication-Token");
-      localStorage.removeItem("HMZ-Authenticated-User");
+    // if (
+    //   error.response?.status === 401) {
+    //   localStorage.removeItem("Authentication-Token");
+    //   localStorage.removeItem("Authenticated-User");
 
-      window.location.href = "/login";
-    }
+    //   window.location.href = "/login";
+    // }
     return Promise.reject(error.response.data);
   }
 );

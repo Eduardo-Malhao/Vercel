@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Sidebar from '../Sidebar/Sidebar';
@@ -23,52 +23,42 @@ const Navbar: React.FC = () => {
   const { user, setUser } = useAuth();
   const { toast, setToast } = useToast();
 
-  const rawId = localStorage.getItem('HMZ-Authenticated-User');
-  let parsedId: number | undefined;
-
-  try {
-    if (rawId !== null) {
-      parsedId = JSON.parse(rawId);
-      if (typeof parsedId !== 'number') {
-        parsedId = undefined;
-      }
-    }
-  } catch (error) {
-    parsedId = undefined;
-  }
+  const rawId = localStorage.getItem("Authenticated-User");
+  const parsedId = rawId ?? undefined;
 
   const { data: profile } = useGet_Profile({
     variables: { id_user: parsedId! },
     enabled: !!parsedId,
   });
 
-  useEffect(() => { profile && setUser(profile.data as IMe) }, [profile]);
+  useEffect(() => { profile && setUser(profile.data.user as IMe)}, [profile]);
 
-useEffect(() => {
-  const token = localStorage.getItem('HMZ-Authentication-Token');
-  const user = localStorage.getItem('HMZ-Authenticated-User');
 
-  if (!token || !user) {
-    localStorage.removeItem('HMZ-Authentication-Token');
-    localStorage.removeItem('HMZ-Authenticated-User');
-    
-    setUser({} as IMe);
+  useEffect(() => {
+    const token = localStorage.getItem('Authentication-Token');
+    const user = localStorage.getItem('Authenticated-User');
 
-    setToast({
-      message: "Sessão expirada. Por favor, faça login novamente.",
-      type: "error",
-    });
+    if (!token || !user) {
+      localStorage.removeItem('Authentication-Token');
+      localStorage.removeItem('Authenticated-User');
 
-    setTimeout(() => {
-      navigate("/login");
-    }, 1500);
-  }
-}, []);
+      setUser({} as IMe);
+
+      setToast({
+        message: "Sessão expirada. Por favor, faça login novamente.",
+        type: "error",
+      });
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
+    }
+  }, []);
 
 
   const onLogout = () => {
-    localStorage.removeItem('HMZ-Authentication-Token');
-    localStorage.removeItem('HMZ-Authenticated-User');
+    localStorage.removeItem('Authentication-Token');
+    localStorage.removeItem('Authenticated-User');
 
     setToast({
       message: "Logout realizado com sucesso.",
@@ -95,10 +85,10 @@ useEffect(() => {
 
             {user && profile ? (
               <ProfileButton
-                id={profile.data.id!}
-                name={profile.data.first_name}
-                email={profile.data.email}
-                avatar={profile.data.avatar ?? null}
+                id={user.id!}
+                name={user.first_name}
+                email={user.email}
+                avatar={user.avatar ?? null}
                 onLogout={onLogout}
               />
             ) : (

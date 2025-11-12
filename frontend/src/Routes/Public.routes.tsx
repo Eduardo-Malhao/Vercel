@@ -6,7 +6,7 @@ interface PublicRouteProps {
 }
 
 const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
-  const token = localStorage.getItem('HMZ-Authentication-Token');
+  const token = localStorage.getItem('Authentication-Token');
 
   if (token) {
     return <Navigate to="/home" />;
