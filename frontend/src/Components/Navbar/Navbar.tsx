@@ -57,7 +57,7 @@ const Navbar: React.FC = () => {
       });
 
       setTimeout(() => {
-        navigate("/login");
+        navigate("/");
       }, 1500);
     }
   }, []);
@@ -73,7 +73,7 @@ const Navbar: React.FC = () => {
     });
 
     setTimeout(() => {
-      navigate("/login");
+      navigate("/");
     }, 1500);
   };
 

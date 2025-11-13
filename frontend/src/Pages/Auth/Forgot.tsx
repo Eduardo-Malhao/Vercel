@@ -44,7 +44,7 @@ const Forgot: React.FC = () => {
           type: "success"
         });
 
-        navigate("/login");
+        navigate("/");
 
         return;
       },

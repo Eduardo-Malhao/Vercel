@@ -24,7 +24,7 @@ export default function AppRoutes() {
 
         {/* Rotas públicas */}
         <Route
-          path="/login"
+          path="/"
           element={
             <PublicRoute>
               <Login />
@@ -62,7 +62,6 @@ export default function AppRoutes() {
 
             
             {/* Home */}
-            <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
 
             {/* Users */}
